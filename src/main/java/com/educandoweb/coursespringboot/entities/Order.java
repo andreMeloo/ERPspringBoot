@@ -5,8 +5,7 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Instant;
 
 @Getter
 @Setter
@@ -14,26 +13,19 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "tb_user")
-public class User implements Serializable {
+@Table(name = "tb_order")
+public class Order implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
 
-    private String name;
-
-    private String email;
-
-    private String phone;
-
-    private String password;
-    
-    @OneToMany(mappedBy = "client")
-    private List<Order> orders = new ArrayList<>();
+    private Instant momento;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private User client;
 
 }
